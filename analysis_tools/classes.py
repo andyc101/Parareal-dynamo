@@ -387,11 +387,11 @@ class Serial_sim:
         #print(time_list)
         return time
     
-    def get_error(self,fine_field,time_slice=-1):
+    def get_error(self,fine_field,time_slice,field_type):
         """Find error between simulation and 'fine_field'"""
         #self.file=self.get_file()
         #print(len(fine_field))
-        field=self.get_field('by',time_slice)
+        field=self.get_field(field_type,time_slice)
         print("Time:{}, time_slice:{}".format(self.get_time(time_slice),time_slice))
         print("len(field):{}, len(fine_field):{}".format(len(field),len(fine_field)))
         if len(field) !=len(fine_field):
