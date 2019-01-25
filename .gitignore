@@ -1,7 +1,6 @@
 initial_conditions/
 spatial_convergence/
 temporal_convergence/
-Results/
 *.e*
 *.o*
 arch_run_spatial_converge.pbs
@@ -11,3 +10,4 @@ Roberts/
 Galloway_proctor/
 *.png
 *.csv
+*.pdf
