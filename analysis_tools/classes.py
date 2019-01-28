@@ -188,6 +188,10 @@ class Parareal_sim:
         end_time=my_file['scales/world_time'][-1]
         coarse_runtime=end_time-start_time
         return coarse_runtime
+    
+    def get_field_types(self):
+        self.get_file(1)
+        self.typelist=list(self.file['tasks'])
         
     def get_error_list_self(self):
         """
@@ -195,6 +199,8 @@ class Parareal_sim:
         
         Returns list of errors found for each parareal iteration
         """
+        self.get_file(1)
+        self.get_field_types()
         error_list=[]
         k_max=self.get_max_k()
         #fine_field=self.get_field(k_max,'by')
@@ -205,19 +211,26 @@ class Parareal_sim:
             error_list.append(error)
         return error_list
         
-    def get_error_list(self,fine_field):
+    def get_error_list(self,fine_field0,fine_field1):
         """
         Find how defect to final result changes over parareal iterations
         """
+        #elf.get_file(1)
+        self.get_field_types()
         error_list=[]
         k_max=self.get_max_k()
         for k in range(k_max+1):
-            field=self.get_field(k,'by')
-            field=signal.resample(field,len(fine_field),axis=0)
-            field=signal.resample(field,len(fine_field),axis=1)
+            field0=self.get_field(k,self.typelist[0])
+            field0=signal.resample(field0,len(fine_field0),axis=0)
+            field0=signal.resample(field0,len(fine_field0),axis=1)
+            error0=LA.norm(field0-fine_field0,2)/LA.norm(fine_field0,2)
             
-            error=LA.norm(field-fine_field,2)/LA.norm(fine_field,2)
-            error_list.append(error)
+            field1=self.get_field(k,self.typelist[1])
+            field1=signal.resample(field1,len(fine_field1),axis=0)
+            field1=signal.resample(field1,len(fine_field1),axis=1)
+            error1=LA.norm(field1-fine_field1,2)/LA.norm(fine_field1,2)
+            
+            error_list.append(max(error0,error1))
         return error_list
         
     
@@ -327,7 +340,7 @@ class Serial_sim:
         Find field of type 'field_type' at 'save_number',-1 indicates
         end of simulation
         """
-        #print("Trying to get field")
+        print("Trying to get field")
         max_s=self.get_max_s()
         self.file=self.get_file(max_s)
         field_name='tasks/'+field_type
@@ -386,6 +399,8 @@ class Serial_sim:
         time=time_list[slice_number]
         #print(time_list)
         return time
+        
+        
     
     def get_error(self,fine_field,time_slice,field_type):
         """Find error between simulation and 'fine_field'"""
