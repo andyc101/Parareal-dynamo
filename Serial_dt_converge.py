@@ -125,7 +125,7 @@ for Rm in Rm_list:
                 savedata1[:,0]=np.copy(dt_list)
                 savedata1[:,1]=np.copy(error_list)
                 print(savedata1)
-                np.savetxt("{}_rm_{}_dt_convergence.csv".format(dynamo_type,Rm),savedata1,delimiter=',')
+                np.savetxt("Results/csv_files/{}_rm_{}_dt_convergence.csv".format(dynamo_type,Rm),savedata1,delimiter=',')
                 
                 print("saved")
             

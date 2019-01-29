@@ -399,8 +399,31 @@ class Serial_sim:
         time=time_list[slice_number]
         #print(time_list)
         return time
+     
+    def get_growth(self):
+        """Returns growth rate of simulation"""
+        data=self.get_time_series()
+        half=int(len(data[0])/2)
+        gr=np.polyfit((data[0][half::]),np.log(data[1][half::]),1)[0]
+        return gr
         
-        
+    def get_time_series(self):
+        """Returns two arrays - time and max val of mag field"""
+        self.get_file(1)
+        self.time_list=list(self.file['scales/sim_time'])
+        iterations=list(self.file['scales/iteration'])
+        field_list=list(self.file['tasks'])
+        arrays=[[],[]]
+        max_num=[[],[]]
+        max_list=[]
+        for index in range(iterations[-1]+1):
+            for i in range(len(field_list)):
+                arrays[i]=self.file['tasks'][field_list[i]][index]
+                max_num[i]=np.max(np.abs(arrays[i]))
+            max_list.append(max(max_num[0],max_num[1]))
+        return [self.time_list,max_list]
+            
+            
     
     def get_error(self,fine_field,time_slice,field_type):
         """Find error between simulation and 'fine_field'"""

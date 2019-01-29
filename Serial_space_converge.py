@@ -96,7 +96,7 @@ for Rm in Rm_list:
     savedata = np.zeros((len(res_list),2))
     savedata[:,0]=np.copy(res_list)
     savedata[:,1]=np.copy(error_list)
-    np.savetxt("{}_RM_{}_spatial_convergence.csv".format(dynamo_type,Rm),savedata,delimiter=',')
+    np.savetxt("Results/csv_files/{}_RM_{}_spatial_convergence.csv".format(dynamo_type,Rm),savedata,delimiter=',')
     
     plt.figure(1,figsize=(8,6))
     plt.loglog(res_list,error_list,marker=marker_list[i],label="{}".format(Rm))

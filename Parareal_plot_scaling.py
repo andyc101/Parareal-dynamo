@@ -224,12 +224,12 @@ max_procs = max(max(serial_n_procs),max(para_procs_list))
 results=np.zeros((len(serial_n_procs),2))
 results[:,0]=serial_n_procs
 results[:,1]=serial_speed_up
-np.savetxt("serial_scaling_RM_{}.csv".format(Rm),results,delimiter=',')
+np.savetxt("Results/csv_files/serial_scaling_RM_{}.csv".format(Rm),results,delimiter=',')
 
 results1=np.zeros((len(para_procs_list),2))
 results1[:,0]=para_procs_list
 results1[:,1]=para_speed_up
-np.savetxt("parareal_scaling_RM_{}.csv".format(Rm),results1,delimiter=',')
+np.savetxt("Results/csv_files/parareal_scaling_RM_{}.csv".format(Rm),results1,delimiter=',')
 
 
 
