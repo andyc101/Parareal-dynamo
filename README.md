@@ -16,7 +16,7 @@ as well as in space.
 
 4. `Galloway_proctor_parareal.py` and `Roberts_parareal.py` will run simulations of the dynamos with Parareal algorithm included. These must be run using `mpiexec -n X python3 script.py ...`, with at least 5 processors (for 5 time slices.). 
 
-5. Parallel in time and space simulations can be carried out by using the `-px` option with the parareal scripts, with a number greater than 1. Best performance is found from numbers like 2<sup>n</sup>, for FFTW performance. 
+5. Parallel in time and space simulations can be carried out by using the `-px` option with the parareal scripts, with a number greater than 1. Best performance is found from numbers like 2<sup>n</sup>, for FFTW performance. The script should be executed using (N<sub>space</sub> x N<sub>time</sub>) processors.
 
 6. Simulations should be merged after completion using either `merge_serial.py` or `merge_paraeal.py`.
 
